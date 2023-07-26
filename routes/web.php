@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('/user-create', function () {
     User::create([
-        'name' => 'han', 'email' => 'cho', 'password' => '123456', 'system_status' => 'active', 'profile_image_id' => ''
+        'name' => 'cho', 'email' => 'devidthan90@gmail.com', 'password' => 'admin@123', 'system_status' => 'active', 'profile_image_id' => null
     ]);
 
     echo 'done';
