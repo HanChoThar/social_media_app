@@ -9,6 +9,17 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
 
+    public function createUser(Request $request) {
+
+        $validate = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        
+    }
+
     public function login(Request $request)
     {
         $credential = $request->only('email', 'password');

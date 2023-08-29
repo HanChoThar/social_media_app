@@ -33,4 +33,16 @@ Route::get('/truncate', function () {
     echo 'done';
 });
 
+Route::get('/test-connection', function() {
+    try {
+        DB::connection()->getPdo();
+        $dbName = DB::connection()->getDatabaseName();
+        if($dbName){
+            echo "Database connection is established - $dbName";
+        }
+    } catch (\Exception $e) {
+        echo "Database connection could not be established.";
+    }
+});
+
 
