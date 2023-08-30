@@ -1,9 +1,12 @@
 <?php
 
 use App\Models\User;
+use Faker\Provider\ar_EG\Company;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +48,7 @@ Route::get('/test-connection', function() {
     }
 });
 
+Route::get('/profile-photos', function () {
+    //
+});
 

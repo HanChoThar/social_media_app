@@ -9,6 +9,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
@@ -70,5 +71,9 @@ class User extends Authenticatable implements JWTSubject
 
     ];
 
+    public function image()
+    {
+        return $this->belongsTo('App\Models\Image', 'profile_image_id');
+    }
     
 }
