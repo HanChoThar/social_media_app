@@ -2,53 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\AuthRepositories;
+use App\Services\AuthServices\JwtAuthService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    protected $jwtAuthService;
 
-    public function createUser(Request $request) {
-
-        $validate = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
-        ]);
-
-        
+    public function __construct(JwtAuthService $jwtAuthService)
+    {
+        $this->jwtAuthService = $jwtAuthService;
     }
 
     public function login(Request $request)
     {
-        $credential = $request->only('email', 'password');
-        $token = auth()->attempt($credential);
-
-        if (!$token) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        return response()->json([
-            'message' => 'successfully logged In',
-            'access_token' => $token,
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+        $repo = new AuthRepositories($this->jwtAuthService);
+        return $repo->login($request);
     }
 
     public function logout()
     {
-        auth()->logout();
-
-        return response()->json([
-            'message' => 'successfully logged out'
-        ]);
+        $repo = new AuthRepositories($this->jwtAuthService);
+        return $repo->logout();
     }
-
-    public function getMe() 
-    {
-        return auth()->user();
-    }
-
 
 }
