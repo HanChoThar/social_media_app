@@ -16,6 +16,9 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable, Uuids;
 
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     // Rest omitted for brevity
 
     /**
@@ -37,9 +40,6 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-
-    public $incrementing = false;
-    protected $keyType = 'string';
 
     /**
      * The attributes that are mass assignable.
@@ -70,6 +70,7 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
 
     ];
+
 
     public function image()
     {

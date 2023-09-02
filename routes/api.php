@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/register/user', [UserController::class, 'createUser']);
 Route::post('auth/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
 
 Route::group(['middleware' => ['auth.api']], function() {
@@ -23,4 +25,5 @@ Route::group(['middleware' => ['auth.api']], function() {
     Route::get('/user', [AuthController::class, 'getMe']);
 
     Route::post('/image/upload', [ImageController::class, 'uploadImage']);
+
 });
