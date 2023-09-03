@@ -3,15 +3,17 @@
 namespace App\Repositories;
 
 use App\Helpers\AmazonS3;
+use App\Helpers\SystemNotification;
 use App\Models\User;
 use App\Models\Image;
+use App\Services\NotificationServices\EmailNotification;
+use Exception;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class UserRepositories
 {
-    public function __construct()
-    {
-        // 
-    }
+    Use SystemNotification;
 
     public function createUser($request)
     {
@@ -26,6 +28,9 @@ class UserRepositories
             'profile_image_id' => ($createImage) ? $createImage->id : null
         ]);
 
+        $welcomeEmail = new EmailNotification($user->email, 'Welcome', $user->name);
+        $this->sendNotification($welcomeEmail);
+        
         return response()->json([
             'message' => 'User Created Successfully',
             'user' => $user
