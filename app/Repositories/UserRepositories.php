@@ -17,8 +17,7 @@ class UserRepositories
 
     public function createUser($request)
     {
-        // $profilePhoto = $request->has('profile_photo') ? $request->file('profile_photo') : null;
-        $profilePhoto = null;
+        $profilePhoto = $request->has('profile_photo') ? $request->file('profile_photo') : null;
         $createImage = $this->createUserProfileImage($profilePhoto);
 
         $user = User::create([
@@ -55,7 +54,7 @@ class UserRepositories
                 'thumbnail' => ''
             ]);
 
-            AmazonS3::uploadFile($folder, $profilePhoto, $storageName, $extension);
+            // AmazonS3::uploadFile($folder, $profilePhoto, $storageName, $extension);
 
             return $image;
         }

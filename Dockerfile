@@ -51,6 +51,9 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 COPY --from=composer:2.4.4 /usr/bin/composer /usr/bin/composer
 
 RUN docker-php-ext-install pdo pdo_mysql
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS \
+        && pecl install redis \
+        && docker-php-ext-enable redis.so
 
 WORKDIR /var/www
 COPY . /var/www
