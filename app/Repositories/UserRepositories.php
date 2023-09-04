@@ -17,7 +17,8 @@ class UserRepositories
 
     public function createUser($request)
     {
-        $profilePhoto = $request->has('profile_photo') ? $request->file('profile_photo') : null;
+        // $profilePhoto = $request->has('profile_photo') ? $request->file('profile_photo') : null;
+        $profilePhoto = null;
         $createImage = $this->createUserProfileImage($profilePhoto);
 
         $user = User::create([
@@ -27,9 +28,6 @@ class UserRepositories
             'system_status' => 'active',
             'profile_image_id' => ($createImage) ? $createImage->id : null
         ]);
-
-        $welcomeEmail = new EmailNotification($user->email, 'Welcome', $user->name);
-        $this->sendNotification($welcomeEmail);
         
         return response()->json([
             'message' => 'User Created Successfully',

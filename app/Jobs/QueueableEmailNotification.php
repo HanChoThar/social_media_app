@@ -3,23 +3,27 @@
 namespace App\Jobs;
 
 use App\Services\NotificationServices\EmailNotification;
+use App\Services\NotificationServices\NotificationInterface;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class QueueableEmailNotification extends EmailNotification implements ShouldQueue
+class QueueableEmailNotification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    protected $notification;
 
     /**
      * Create a new job instance.
      */
-    public function __construct($to, $subject, $message)
+    public function __construct(NotificationInterface $notification)
     {
-        parent::__construct($to, $subject, $message);
+        $this->notification = $notification;
     }
 
     /**
@@ -27,6 +31,6 @@ class QueueableEmailNotification extends EmailNotification implements ShouldQueu
      */
     public function handle(): void
     {
-        //
+        $this->notification->sendNotification();
     }
 }
