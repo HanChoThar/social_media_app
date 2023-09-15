@@ -10,19 +10,21 @@ class EmailNotification extends Mailable implements NotificationInterface
     public $toEmail;
     public $subject;
     public $message;
+    public $template;
 
-    public function __construct($to, $subject, $message)
+    public function __construct($to, $subject, $message, $template)
     {
         $this->toEmail = $to;
         $this->subject = $subject;
         $this->message = $message;
+        $this->template = $template;
     }
 
     public function build()
     {
         return $this->to($this->toEmail)
         ->subject($this->subject)
-        ->view('notification.email') 
+        ->view($this->template) 
         ->with(['userName' => $this->message]);
     }
 

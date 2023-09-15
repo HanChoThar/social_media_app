@@ -4,6 +4,7 @@ use App\Models\User;
 use Faker\Provider\ar_EG\Company;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -49,6 +50,18 @@ Route::get('/test-connection', function() {
     }
 });
 
-Route::get('/profile-photos', function () {
+Route::get('/testy', function () {
+    $uppercase = Str::random(1, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    $lowercase = Str::random(1, 'abcdefghijklmnopqrstuvwxyz');
+    $number = Str::random(1, '0123456789');
+    $specialChar = Str::random(1, '!@#$%^&*()_+-=[]{}|;:,.<>?');
+
+    $allChars = $uppercase . $lowercase . $number . $specialChar;
+
+    $remainingChars = Str::random(4, $allChars);
+
+    $password = str_shuffle($allChars . $remainingChars);
+
+    echo $password;
 });
 

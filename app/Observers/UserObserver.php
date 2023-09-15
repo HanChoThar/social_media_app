@@ -3,7 +3,7 @@
 namespace App\Observers;
 
 use App\Helpers\SystemNotification;
-use App\Jobs\QueueableEmailNotification;
+use App\Jobs\QueueableNotification;
 use App\Models\User;
 use App\Services\NotificationServices\EmailNotification;
 use Carbon\Carbon;
@@ -17,8 +17,8 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        $welcomeEmail = new EmailNotification($user->email, 'Welcome', $user->name);
-        $this->sendAsyncNotification((new QueueableEmailNotification($welcomeEmail)));
+        $welcomeEmail = new EmailNotification($user->email, 'Welcome', $user->name, 'notification.email');
+        $this->sendAsyncNotification((new QueueableNotification($welcomeEmail)));
     }
 
     /**

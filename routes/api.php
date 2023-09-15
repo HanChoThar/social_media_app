@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register/user', [UserController::class, 'createUser']);
 Route::post('auth/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
+Route::post('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 
 Route::group(['middleware' => ['auth.api']], function() {
     Route::post('/logout', [AuthController::class, 'logout']);

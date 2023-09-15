@@ -54,7 +54,9 @@ class UserRepositories
                 'thumbnail' => ''
             ]);
 
-            // AmazonS3::uploadFile($folder, $profilePhoto, $storageName, $extension);
+            if(config('app.env') == 'production' && config('app.env') != 'local' && !config('app.debug')) {
+                AmazonS3::uploadFile($folder, $profilePhoto, $storageName, $extension);
+            }
 
             return $image;
         }
