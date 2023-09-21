@@ -76,5 +76,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo('App\Models\Image', 'profile_image_id');
     }
+
+    public function post()
+    {
+        return $this->hasMany('App\Models\Post', 'author_id');
+    }
     
 }

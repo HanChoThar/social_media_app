@@ -14,11 +14,11 @@ class Post extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable = [ 'user_id', 'image_id', 'contents'];
+    protected $fillable = [ 'author_id', 'image_id', 'title', 'contents'];
 
     public function user() 
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     public function like()
@@ -28,6 +28,6 @@ class Post extends Model
 
     public function comment()
     {
-        return $this->hasMany(Comment::class, 'post_id')
+        return $this->hasMany(Comment::class, 'post_id');
     }
 }

@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->uuid('id');
-            $table->uuid('user_id');
+            $table->uuid('author_id');
             $table->uuid('image_id')->nullable();
+            $table->string('title', 500);
             $table->text('contents');
             $table->softDeletes('deleted_at');
             $table->timestamps();
