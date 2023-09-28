@@ -22,7 +22,7 @@ class PostController extends Controller
     {
         $rules = [
             'title' => ['required', 'string', 'max:500'],
-            'content' => ['required'],
+            'contents' => ['required'],
             'image_id' => ['nullable']
         ];
         $validator = Validator::make($request->all(), $rules);

@@ -16,7 +16,7 @@ class PostRepositories
             'author_id' => $userId,
             'image_id' => $imageId,
             'title' => $request->title,
-            'content' => $request->content
+            'contents' => $request->contents
         ]);
 
         return response()->json([
@@ -26,7 +26,8 @@ class PostRepositories
 
     public function getAllPosts($request)
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate($request->limit, ['*'], 'page', $request->page);
+        $posts = Post::orderBy('created_at', 'desc')
+                    ->paginate($request->limit, ['*'], 'page', $request->page);
 
         return response()->json($posts, 201);
     }

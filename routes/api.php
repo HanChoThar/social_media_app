@@ -29,7 +29,9 @@ Route::group(['middleware' => ['auth.api']], function() {
     Route::post('/image/upload', [ImageController::class, 'uploadImage']);
 
     Route::post('/post/create', [PostController::class, 'createPost']);
-    Route::get('/posts', [PostController::class, 'getAllPosts']);
+    Route::get('/post/all', [PostController::class, 'getAllPosts']);
     Route::get('/post/{id}', [PostController::class, 'getPostById']);
+
+    Route::get('/posts', [PostController::class, 'getAllPosts']);
 
 });
