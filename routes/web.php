@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobListingController;
 use App\Models\User;
 use Faker\Provider\ar_EG\Company;
 use Illuminate\Support\Str;
@@ -21,8 +22,9 @@ use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(JobListingController::class)->group(function() {
+    Route::get('/', 'jobLists')->name('job.showAll');
+    Route::get('/job-detail/{id}', 'jobDetailById')->name('job.show');
 });
 
 Route::get('/user-create', function () {
